@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
+
+def config = rootProject.ext.config
+
+android {
+    compileSdkVersion config.compileSdkVersion
+
+    defaultConfig {
+        applicationId config.applicationId
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.buildVersionName()
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+            minifyEnabled false
+
+            buildConfigField "String", "apiURL", "\"https://hiring.revolut.codes/\""
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            applicationIdSuffix ".release"
+            minifyEnabled false
+
+            buildConfigField "String", "apiURL", "\"https://hiring.revolut.codes/\""
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    def ver = rootProject.ext.version
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$ver.appcompat"
+    implementation "androidx.core:core-ktx:$ver.core_ktx"
+    implementation "androidx.constraintlayout:constraintlayout:$ver.constraint_layout"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // DI
+    implementation "org.koin:koin-android:$ver.koin"
+    implementation "org.koin:koin-androidx-scope:$ver.koin"
+    implementation "org.koin:koin-androidx-viewmodel:$ver.koin"
+
+    // Anko
+    implementation "org.jetbrains.anko:anko-sdk25:$ver.anko"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$ver.anko"
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$ver.anko"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$ver.anko"
+
+    // Jetpack
+    implementation "androidx.navigation:navigation-fragment-ktx:$ver.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$ver.navigation"
+    implementation "androidx.fragment:fragment-ktx:$ver.fragment"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$ver.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ver.lifecycle"
+
+    // Network
+    implementation "com.squareup.retrofit2:retrofit:$ver.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$ver.retrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$ver.okhttp3"
+
+    // Utils
+    implementation "com.jakewharton.timber:timber:$ver.timber"
+    implementation "androidx.preference:preference-ktx:$ver.preferences"
+}

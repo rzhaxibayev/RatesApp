@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RatesApp</string>
+    <string name="error">Could not load rates</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="title_rates">Rates</string>
+    <string name="zero">0</string>
+</resources>

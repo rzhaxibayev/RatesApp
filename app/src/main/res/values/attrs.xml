@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CommonRecyclerView">
+        <attr name="crv_itemLayout" format="reference" />
+        <attr name="crv_orientation">
+            <enum name="vertical" value="1" />
+            <enum name="horizontal" value="2" />
+        </attr>
+        <attr name="crv_defaultAdapter" format="boolean" />
+    </declare-styleable>
+</resources>
