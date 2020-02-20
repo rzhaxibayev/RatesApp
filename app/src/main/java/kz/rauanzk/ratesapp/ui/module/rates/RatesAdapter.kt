@@ -4,6 +4,8 @@ import android.text.InputFilter
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
@@ -89,6 +91,7 @@ class RatesAdapter : RecyclerView.Adapter<RatesAdapter.RateViewHolder>() {
             view.name.text = rateUiModel.name
             view.description.text = rateUiModel.description
             view.icon.setImageResource(rateUiModel.iconRes)
+            view.button.visibility = if (rateUiModel.isBase) GONE else VISIBLE
 
             fun doOnClick() {
                 if (rateUiModel.isBase || !App.isOnline()) {
@@ -135,6 +138,10 @@ class RatesAdapter : RecyclerView.Adapter<RatesAdapter.RateViewHolder>() {
             }
 
             view.setOnClickListener {
+                doOnClick()
+            }
+
+            view.button.setOnClickListener {
                 doOnClick()
             }
         }
